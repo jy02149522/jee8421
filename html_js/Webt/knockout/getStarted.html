@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h3>Meal upgrades</h3>
+		<p>Make your flight more bearable by selecting a meal to match your social and economic status.</p>
+		Chosen meal: <select data-bind="{options: meals,optionsText: 'mealName', value: chosenMeal, event:{change:selFunc}}"></select>
+		<input type="button" id="" value="UpdateMeal" onclick="updateMeal()" />
+		
+		<input type="button" id="" value="UpdateSelected" onclick="updateSelected()" />
+		
+		<p>
+		    You've chosen:
+		    <b data-bind="text: chosenMeal().extraCost"></b>
+		    (price: <span data-bind='text: formatPrice(chosenMeal().extraCost)'></span>)
+		</p>
+
+
+		
+	</body>
+	<script type="text/javascript" src="../js/knockout-3.4.0.js" ></script>
+	<script>
+	
+		var availableMeals = [
+		    { mealName: 'Standard', description: 'Dry crusts of bread', extraCost: 0 },
+		    { mealName: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 },
+		    { mealName: 'Deluxe', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 }
+		];
+		var viewModel = {
+    		chosenMeal: ko.observable(),
+    		meals : ko.observable(availableMeals),
+    		selFunc : function(data)
+    		{
+    			console.log(data.chosenMeal());
+    		}
+		};
+
+		ko.applyBindings(viewModel); // Makes Knockout get to work
+		// 注意：ko. applyBindings需要在上述HTML之后应用才有效
+		function updateMeal()
+		{
+			console.log('1mealName:' + viewModel.meals()[0].mealName);
+			viewModel.meals()[0].mealName = 'ABCDEF';
+			console.log('2mealName:' + viewModel.meals()[0].mealName);
+			
+		}
+		
+		function updateSelected()
+		{
+		viewModel.chosenMeal(availableMeals[2]);
+		}
+		
+		function formatPrice(price) {
+		    return price == 0 ? "Free" : "$" + price.toFixed(2);
+		}
+		
+	</script>
+</html>

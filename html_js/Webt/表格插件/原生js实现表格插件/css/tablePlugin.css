@@ -1,0 +1,30 @@
+.tablePluginList{
+	font-size:0;
+}
+.tablePluginList *{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.tablePluginList .columnsTitle{
+	font-size:0px;
+	color:red;
+}
+.tablePluginList .columnsTitle span{
+	display:inline-block;
+	font-size:20px;
+	line-height: 30px;
+	height: 40px;
+	box-sizing: border-box;
+}
+.tablePluginList .columnsBody ul{
+	display: inline-block;
+	font-size:20px;
+	text-align: left;
+	padding: 0;
+	vertical-align: top;
+}
+.tablePluginList .columnsBody ul li{
+	width:100%;
+	box-sizing: border-box;
+}

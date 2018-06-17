@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="css/jquery.RotatePic.css" />
+	</head>
+	<body>
+		<div class="abc" style="margin:0 auto"></div>
+	</body>
+	<script src="js/jquery-2.1.0.js"></script>
+	<script src="js/jquery.RotatePic.js"></script>
+	<script>
+		$('.abc').myRotatePic({
+            'width':'250px',
+            'height':'300px',
+            //是否自动轮播
+            'autoRotate':0,
+            //固定icon大小
+            'iconSize':'30',
+            //是否有线
+            'lineShow':true,
+            //icon之间的边距
+            'iconMargin':'1%',
+            'data':[
+             {icon:'img/ty16.png',img:'img/ty12.png',imgId:'img_1'},
+             {icon:'img/ty17.png',img:'img/ty14.png',imgId:'img_2'},
+             {icon:'img/ty16.png',img:'img/ty12.png',imgId:'img_3'},
+             {icon:'img/ty17.png',img:'img/ty14.png',imgId:'img_4'}
+            ]
+		});
+	</script>
+</html>

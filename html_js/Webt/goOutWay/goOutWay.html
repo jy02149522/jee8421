@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>出行方式</title>
+		<style>
+		    *{
+		    	margin:0;
+		    	padding:0;
+		    }
+		    .goOutWay{
+		    	width:1100px;
+		    	margin:0 auto;
+		    	text-align: center;
+		    }
+		    .wayList {
+		    	margin-top:60px;
+		    	font-size:0;
+		    	height: auto;
+		    	height: 90px;
+		    }
+		    .wayList .iconWay{
+		    	display: inline-block;
+		    	width:90px;
+		    	height: 90px;
+		    	margin-left:10px;
+			    margin-right: 10px;
+			    transition: .5s;
+		    }
+			.wayList .iconWay img{
+				width:90px;
+				height: 90px;
+				transition: .5s;
+			}
+			.iconWay:hover{
+				width:126px; 
+				height:126px; 
+			}
+			.iconWay img:hover{
+				width:126px; 
+				height:126px; 
+				margin:-18px;
+			}
+			.wayList .lineCircle{
+				display: inline-block;
+				height: 100%;
+				vertical-align: middle;
+			}
+			.lineCircle .circle{
+				height: 7px;
+				width: 8px;
+				border-radius: 50%;
+				border:1px solid #ccc;
+				display: inline-block;
+				padding-top: 1px;
+			}
+			.circle .bitCircle{
+				height: 6px;
+				width: 6px;
+				border-radius: 50%;
+				background-color: #ccc;
+				display: inline-block;
+			}
+			.lineCircle .line{
+				display: inline-block;
+				width:10rem;
+				height: 2px;
+				background-color: #ccc;
+				position:relative;
+				top:-1px;
+			}
+			.a1{width:100px; height:100px; margin:200px auto;}
+			.abc{width:100px;height:100px;background:#f00; transition:.5s}
+			.a1:hover .abc{width:120px; height:120px; margin:-10px 0 0 -10px}
+		</style>
+		<link rel="stylesheet" type="text/css" href="jquery.HXSearch.css" />
+	</head>
+	<body>
+		<div class="goOutWay">
+			<div class="wayList">
+				<div class="lineCircle">
+					<span class="circle">
+						<span class="bitCircle"></span>
+					</span>
+					<span class="line"></span>
+					<span class="circle">
+						<span class="bitCircle"></span>
+					</span>
+				</div>
+				<div class="iconWay"><img src="imgs/ty16.png" /></div>	
+				<div class="lineCircle">
+					<span class="circle">
+						<span class="bitCircle"></span>
+					</span>
+					<span class="line"></span>
+					<span class="circle">
+						<span class="bitCircle"></span>
+					</span>
+				</div>
+				<div class="iconWay"><img src="imgs/ty17.png" /></div>
+				<div class="lineCircle">
+                    <span class="circle">
+                    	<span class="bitCircle"></span>
+                    </span>
+					<span class="line"></span>
+					<span class="circle">
+						<span class="bitCircle"></span>
+					</span>
+				</div>
+				<div class="iconWay"><img src="imgs/ty18.png" /></div>
+				<div class="lineCircle">
+                    <span class="circle">
+                    	<span class="bitCircle"></span>
+                    </span>
+					<span class="line"></span>
+					<span class="circle">
+						<span class="bitCircle"></span>
+					</span>
+				</div>
+			</div>
+			<div class="wayImg"></div>
+			<div class="a1">
+				<div class="abc"></div>
+			</div>
+		</div>
+		<div class="aaa"></div>
+	</body>
+	<script type="text/javascript" src="js/jquery-2.1.0.js" ></script>
+	<script src="js/jquery.myplugin.js"></script>
+	<script>
+		$('.aaa').myPlugin({
+				color:"#000",
+				fix:true,
+				title:{
+				   'show':true,
+				   'content':'大众点评',
+				   'titleColor':'#f8cfa5'
+				},
+				twoPageFontColor:'red',
+				placeholder:"输入商户名、地点",
+				//可以是html
+				RecommendContent:'大家都在搜',
+				//参数为点击的列表元素
+				onRecommentListAction:function(selectKey){
+					console.log(selectKey.html());
+				},
+				onSearch:function(inputKey){
+					var objSearch = [{name:"香蕉",desc:"<500m"},{name:"鸡肉",desc:">1000m"},{name:"炸鸡",desc:"共200个结果"}];
+					return objSearch;
+				},
+				getChooseData : function()
+				{
+					var objChoose = [{name:"D香蕉",desc:"<500m"},{name:"D鸡肉",desc:">1000m"},{name:"D炸鸡",desc:"共200个结果"}];
+					return objChoose;
+				},
+				//参数为点击的列表元素
+				onAction:function(selectKey){
+					console.log(selectKey.html());
+				},
+				onSearchBtn:function(){
+					console.log('ppppppppppppppppppppppppp');
+				}
+			});
+			
+	</script>
+</html>

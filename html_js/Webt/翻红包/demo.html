@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>抽奖demo</title>
+	<style type="text/css">
+		#demo{
+			border: 1px solid red;
+			width: 270px;
+			height: 100px;
+			position: relative;
+		}
+	 	#demo div
+	 	{
+	 		width: 30px;
+	 		height: 30px;
+			position: absolute;
+			-webkit-transition: all 0.1s linear;
+			-moz-transition: all 0.1s linear;
+			-ms-transition: all 0.1s linear;
+			-o-transition: all 0.1s linear;
+			transition: all 0.1s linear;
+			display: -webkit-flex;
+			-webkit-align-items: center;
+			-webkit-justify-content: center;
+			display: flex;
+			justify-content:center;
+			align-items:center;
+		}
+		#demo div span{
+		  display:block;
+		  width:100%;
+		  height:100%;
+		}
+		#demo div .side1
+		{
+			background:blue
+		}
+		#demo div .side2
+		{
+			display:none;
+			background:green
+		}
+		.fanzhuan{
+		}
+		
+	</style>
+</head>
+<body>
+	
+	抽奖活动demo
+	
+	<div id="demo"></div>
+	
+	<button id="start">start</button>
+	<button id="stop">stop</button>
+	<button id="show">show</button>
+	<select name="level" id="level">
+		<option value="1">第一关</option>
+		<option value="2">第二关</option>
+		<option value="3">第三关</option>
+		<option value="4">变态一</option>
+		<option value="5">变态二</option>
+	</select>
+<script type="text/javascript" src="jquery.min.js" ></script>
+<script type="text/javascript">
+ function GetRandomNum(Min,Max)
+{   
+	var Range = Max - Min;   
+	var Rand = Math.random();   
+	return(Min + Math.round(Rand * Range));   
+}  
+ // 扩展数组查找
+ Array.prototype.nextXY = function(obj)
+ {
+ 	var _len = this.length;
+ 	for (var i = 0; i < _len; i++) {
+ 		if(obj.x == this[i].x && obj.y == this[i].y)
+ 		{
+ 			if(i == (_len - 1))
+ 				return this[0];
+ 			else
+ 				return this[i+1];
+ 		}
+ 	}
+ 	return {x:0,y:0};
+ }
+ 
+ var _tstepNum = 70;
+ var _lstepNum = 60;
+ var _divW,_divH,_itemH;
+ var mSpeed = 100;
+ 
+ // 构造路由
+ var mARoute = [];
+ 
+ // 路由a
+ function createARoute()	
+ {
+ 	mARoute = [];
+ 	var _len = 10;
+ 	var _templen = _len / 2;
+ 	for (var i = 0; i < _len; i++) {
+ 		if(i < _templen)
+ 			mARoute.push({x:i*_lstepNum,y:0});
+ 		else
+ 			mARoute.push({x: (_len - i - 1) *_lstepNum,y:_tstepNum});
+ 	}
+ }
+ // 路由b
+ function createBRoute()
+ {
+ 	mARoute = [];
+ 	mARoute.push({x:0,y:0});
+ 	mARoute.push({x:1 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:2 * _lstepNum,y:0});
+ 	mARoute.push({x:3 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:4 * _lstepNum,y:0});
+ 	mARoute.push({x:4 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:3 * _lstepNum,y:0});
+ 	mARoute.push({x:2 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:1 * _lstepNum,y:0});
+ 	mARoute.push({x:0 * _lstepNum,y:_tstepNum});
+ }
+ 
+ // 路由c
+ function createCRoute()
+ {
+ 	mARoute = [];
+ 	mARoute.push({x:0,y:0}); //1
+ 	mARoute.push({x:1 * _lstepNum,y:0}); //2
+ 	mARoute.push({x:1 * _lstepNum,y:_tstepNum}); //3
+ 	mARoute.push({x:2 * _lstepNum,y:_tstepNum}); // 4
+ 	mARoute.push({x:2 * _lstepNum,y:0}); // 5
+ 	mARoute.push({x:3 * _lstepNum,y:0}); // 6
+ 	mARoute.push({x:3 * _lstepNum,y:_tstepNum}); //7
+ 	mARoute.push({x:4 * _lstepNum,y:_tstepNum}); //8 8
+ 	mARoute.push({x:4 * _lstepNum,y:0}); //9
+ 	mARoute.push({x:3 * _lstepNum,y:0}); //6
+ 	mARoute.push({x:3 * _lstepNum,y:_tstepNum}); //7 11
+ 	mARoute.push({x:2 * _lstepNum,y:_tstepNum}); //4 12
+ 	mARoute.push({x:2 * _lstepNum,y:0}); //5
+ 	mARoute.push({x:1 * _lstepNum,y:0}); // 2
+ 	mARoute.push({x:1 * _lstepNum,y:_tstepNum}); //3 15
+ 	mARoute.push({x:0,y:_tstepNum}); //10
+ }
+ 
+ function createCInit()
+ {
+ 	mARoute = [];
+ 	mARoute.push({x:0,y:0});
+ 	mARoute.push({x:1 * _lstepNum,y:0});
+ 	mARoute.push({x:1 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:2 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:2 * _lstepNum,y:0});
+ 	mARoute.push({x:3 * _lstepNum,y:0});
+ 	mARoute.push({x:3 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:4 * _lstepNum,y:_tstepNum});
+ 	mARoute.push({x:4 * _lstepNum,y:0});
+ 	mARoute.push({x:0,y:_tstepNum});
+ }
+ 
+ //createARoute();
+ //console.log(mARoute);
+ 
+
+ 
+ // 元素 启动
+ function start(pid,pRoute)
+ {
+ 	var _item = $(pid);
+	var _initX = Number.parseInt(_item.css("left"));
+	var _initY = Number.parseInt(_item.css("top"));
+	return setInterval(function(){
+		var _txy = {x:_initX,y:_initY};
+		var _nextxy = pRoute.nextXY(_txy);
+		_initX = _nextxy.x;
+		_initY = _nextxy.y;
+		_item.css({"left":_initX+"px","top":_initY+"px"});
+	},mSpeed);
+}
+
+ 
+ // 复杂链路
+ function start2(index,item,pRoute)
+ {
+ 	console.log(index);
+ 	var _len = pRoute.length;
+ 	var _startIndex;
+// 	if(index == 9)
+// 	{
+// 		_startIndex = 15;
+// 	}
+// 	
+// 	else if(index == 6)
+// 	{
+// 		_startIndex = 10;
+// 	}
+// 	else
+ 	//{
+		_startIndex = index;
+ 	//}
+ 	return setInterval(function(){
+ 		if(_startIndex >= _len - 1)
+ 		{
+ 			_startIndex = 0;
+ 		}
+ 		else
+ 		{
+ 			_startIndex++;
+ 		}
+		var _xy = pRoute[_startIndex];
+		$(item).css({"left":_xy.x+"px","top":_xy.y+"px"});
+	},mSpeed);
+ }
+
+ function initData(pRoute)
+ {
+ 	var _html = "";
+ 	var _len = pRoute.length;
+ 	for (var i = 0; i < _len; i++) {
+ 		var _xy = pRoute[i];
+ 		_html += '<div style="left:'+_xy.x+'px;top:'+_xy.y+'px"><span class="side1"></span><span class="side2"><span></div>';
+ 	}
+ 	$("#demo").html(_html);
+ }
+
+$(function(){
+		
+	// 初始化
+	createARoute();
+	initData(mARoute);
+	
+	
+	_divW = $("#demo").width();
+	_divH = $("#demo").height();
+	_itemH = $("#demo div").height();
+	console.log('divW:'+_divW + ' divH:' + _divH + 'itemH:' + _itemH);
+	
+	var _timerArg = [];
+	
+	$("#start").click(function(){
+	   $("#demo div .side2").css('background','green');
+		var _level = $("#level").val();
+		
+		// 平均速度 蛇传
+		if(_level == 1)
+		{
+			mSpeed = 500;
+			createARoute();
+			initData(mARoute);
+			$("#demo div").css("transition-duration","0.1s");
+			
+		}
+		
+		// 平均速度 交叉
+		if(_level == 2)
+		{
+			mSpeed = 500;
+			createBRoute();
+			initData(mARoute);
+			$("#demo div").css("transition-duration","0.3s");
+			
+		}
+		
+		// 平均速度 蛇传2
+		if(_level == 3)
+		{
+			createCInit();
+			initData(mARoute);
+			mSpeed = 500;
+			createCRoute();
+			$("#demo div").css("transition-duration","0.5s");
+		}
+		var index=GetRandomNum(0,9);
+		$("#demo div").eq(index).find('.side2').css('background','red');
+		$("#demo div").eq(index).find('.side1').stop().animate({width:0},300,function(){
+			$(this).hide().next().show();
+			$(this).next().animate({'width':'100%'},300)
+		});
+		setTimeout(function(){
+			$("#demo div").eq(index).find('.side2').stop().animate({'width':0},300,function(){
+				$(this).hide().prev().show();
+				$(this).prev().animate({'width':'100%'},300);
+			});
+		},2000);
+		setTimeout(function(){
+			$("#demo div").each(function(index,item){
+				if(_level == 3)
+				{
+					_timerArg.push(start2(index,item,mARoute));
+				}
+				else
+				{
+					_timerArg.push(start(item,mARoute));	
+				}
+			});
+		},4000);
+		//stop按钮必须在start按钮之后
+		$("#stop").click(function(){
+			for (var i = 0; i < _timerArg.length; i++) {
+				window.clearInterval(_timerArg[i]);
+			}
+			//点击停止按钮后才能点击元素
+			$("#demo").on('click','div',function(){
+				$(this).find('.side1').stop().animate({width:0},300,function(){
+					$(this).hide().next().show();
+					$(this).next().animate({'width':'100%'},300);
+				});
+				//用户点击元素后才能点击show查看中奖div
+				$("#show").click(function(){
+					if(index!=''){
+						//防止用户重复点击
+						$("#demo div").eq(index).find('.side2').css('background','red');
+						console.log(index);
+						$("#demo div").eq(index).find('.side1').stop().animate({width:0},300,function(){
+							$(this).hide().next().show();
+							$(this).next().animate({'width':'100%'},300);
+						});
+						index='';
+					}
+				})
+			})
+		});
+		 
+	});
+});
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<meta charset="UTF-8">
+		<title>太原演唱会</title>
+		<link rel="stylesheet" type="text/css" href="TaiYuanconcertapp.css" />
+		<style>
+			table{
+				margin: auto;
+				color:darkgrey;
+				font-size: 13px; 
+				border-top: 1px solid darkgray;
+				border-left: 1px solid darkgray;
+			}
+			td{
+				 border-bottom: 1px solid darkgray;
+				 border-right: 1px solid darkgray;
+				 padding: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="images/header.png" style="width:100%;"/>
+		<div class="concert-body">
+			<div class="introduce">
+				<h2 class="title">奇迹演唱会 • 门票等你拿</h2>
+				<img src="images/fontintroduce.png" style="width:50%"/>
+			</div>
+			<div class="actor">
+		    </div>
+		    <div class="goWay" style="text-align: center;">
+		    	<h2 class="title">选择您的最佳出行方式</h2>
+		    	<img src="images/go1.png" style="width:50%"/>
+		    	<p style="width：100%;height:40px; font-size:20px;color:#9843C7;text-align: center; line-height: 40px;font-weight: 700;margin-top:20px;font-family: '微软雅黑';">选择您的出行方式</p>
+	    		<div class="wayList">
+	    			<img src="images/line.png"/>
+					<div class="iconWay iconWay1"><img src="images/btn1.png" /></div>
+					<img src="images/line.png"/>
+					<div class="iconWay iconWay1" style="width:76px; height:76px;"><img src="images/btn3.png" style="width:76px; height:76px;margin:-18px"/></div>
+					<img src="images/line.png"/>
+					<div class="iconWay iconWay1"><img src="images/btn2.png" /></div>
+					<img src="images/line.png"/>
+		        </div>
+		        <div class="wayImg">
+			       	<img src="images/map_plane.png" id="img0" />
+					<img src="images/map_drive.png" id="img1"/>
+					<img src="images/map_rail.png" id="img2"/>
+				</div>
+	    	</div>
+		    <div class="goWay" style="text-align: center;">
+		    	<h2 class="title">玩转太原城，有财君帮你选</h2>
+		    	<div class="wayList">
+	    			<img src="images/line.png"/>
+	    			<div class="iconWay iconWay2" style="width:76px; height:76px;"><img src="images/btn5.png" style="width:76px; height:76px;margin:-18px"/></div>
+					<img src="images/line.png"/>
+					<div class="iconWay iconWay2"><img src="images/btn4.png" /></div>
+					<img src="images/line.png"/>
+		        </div>
+		        <div style="width:350px;margin:0 auto">
+			        <div class="wayImg">
+				       	<img src="images/food_map.png" id="img_0" usemap="#foodMap"/>
+				       	<map name="foodMap" id="foodMap">
+				       		<area shape="rect" coords="0,20,50,60" href ="javascript:void(0)" alt="六味斋" id="foodMap_1"/>
+				       		<area shape="rect" coords="200,30,250,70" href ="javascript:void(0)" alt="太原面食馆" id="foodMap_2"/>
+				       		<area shape="rect" coords="10,220,60,260" href ="javascript:void(0)" alt="老太原菜馆" id="foodMap_3"/>
+				       		<area shape="rect" coords="230,150,280,190" href ="javascript:void(0)" alt="滨河味道" id="foodMap_4"/>
+				       		<area shape="rect" coords="200,250,250,290" href ="javascript:void(0)" alt="晋韵楼" id="foodMap_5"/>
+				       	</map>
+						<img src="images/spot_map.png" id="img_1" usemap="#spotMap"/>
+						<map name="spotMap" id="spotMap">
+				       		<area shape="rect" coords="0,50,50,80" href ="javascript:void(0)" alt="山西博物馆" id="spotMap_1"/>
+				       		<area shape="rect" coords="60,0,110,30" href ="javascript:void(0)" alt="太原动物园" id="spotMap_2"/>
+				       		<area shape="rect" coords="10,140,60,170" href ="javascript:void(0)" alt="圣母殿" id="spotMap_3"/>
+				       		<area shape="rect" coords="210,60,260,90" href ="javascript:void(0)" alt="汾河公园" id="spotMap_4"/>
+				       		<area shape="rect" coords="230,200,280,230" href ="javascript:void(0)" alt="双塔寺" id="spotMap_5"/>
+				       	</map>
+					</div>
+				</div>
+		    </div>
+		    <div class="getAward" style="text-align: center;">
+		    	<h2 class="title">获得最终奖励的有财君是？</h2>
+		    </div>
+		    <br />
+		    <div class="getAward" style="text-align: center;">
+		    	<img src="images/su3.png" width="60%"/>
+		    </div>
+		    <br />
+	    	<table id="paiming" width="60%" style="" cellpadding="0" cellspacing="0">
+	    	</table>
+		    <br /><br /><br /><br /><br /><br />
+		</div>
+		<div id="goodcover"></div>
+		<div id="code">
+		  	<div class="close1"><a href="javascript:void(0)" id="closebt"><img src="images/close.gif"></a></div>
+		  	<div class="code-img"> <img  src="images/food_1.png"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+	<script type="text/javascript" src="js/three.min.js"></script> 
+	<script type="text/javascript" src="js/assets.js"></script> 
+	<script type="text/javascript" src="js/preloadjs.min.js"></script> 
+	<script type="text/javascript" src="js/TweenMax.min.js"></script> 
+	<script type="text/javascript" src="js/Stats.js"></script> 
+	<script type="text/javascript" src="js/image-gallery-three.js"></script> 
+    <script>
+        $(function(){
+        	rotateFun('.iconWay1','#img',$('.iconWay1').length);
+        	rotateFun('.iconWay2','#img_',$('.iconWay2').length);
+        	mapFun('#foodMap','food');
+        	mapFun('#spotMap','spot');
+            $('#closebt').click(function() {
+		        $('#code').hide();
+		        $('#goodcover').hide();
+		    });
+		    $('#goodcover').click(function() {
+		        $('#code').hide();
+		        $('#goodcover').hide();
+		    });
+		    //弹出窗口插件
+            jQuery.fn.center = function(loaded) {
+		        var obj = this;
+		        body_width = parseInt($(window).width());
+		        body_height = parseInt($(window).height());
+		        block_width = parseInt(obj.width());
+		        block_height = parseInt(obj.height());
+		
+		        left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+		        if (body_width < block_width) {
+		            left_position = 0 + $(window).scrollLeft();
+		        };
+		
+		        top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+		        if (body_height < block_height) {
+		            top_position = 0 + $(window).scrollTop();
+		        };
+		
+		        if (!loaded) {
+		
+		            obj.css({
+		                'position': 'fixed'
+		            });
+		            obj.css({
+		                'top': ($(window).height() - $('#code').height()) * 0.5,
+		                'left': left_position
+		            });
+		            $(window).bind('resize', function() {
+		                obj.center(!loaded);
+		            });
+		            $(window).bind('scroll', function() {
+		                obj.center(!loaded);
+		            });
+		
+		        } else {
+		            obj.stop();
+		            obj.css({
+		                'position': 'absolute'
+		            });
+		            obj.animate({
+		                'top': top_position
+		            }, 200, 'linear');
+		        }
+		    }
+            
+             var _actor = $(".actor");
+        	 var box = _actor.ig3js({
+		        manifest: [
+		            {src:"1.jpg", id:"image1"},
+		            {src:"2.jpg", id:"image2"},
+		            {src:"3.jpg", id:"image3"},
+		            {src:"4.jpg", id:"image4"},
+		            {src:"5.jpg", id:"image5"},
+		            {src:"6.jpg", id:"image6"},
+		            {src:"7.jpg", id:"image7"},
+		            {src:"8.jpg", id:"image8"},
+		            {src:"9.jpg", id:"image9"}
+		        ],
+		        imagePath: 'images/actor/',
+		        alphaBackground: true,
+		        onNavigateComplete: function(obj){
+		        	setTimeout(function(){
+		        		 box.navigate.next();
+		        	},1000);
+		        }
+		    });
+        	
+        	$("canvas").width(_actor.width()).height(_actor.height()).appendTo(".actor");
+            
+        })
+        
+        function rotateFun(ele1,ele2,_cnt){
+    		for (var i = 0; i < _cnt; i++) {
+        		(function(ii){
+        			$(ele1+':eq('+ ii +')').mouseover(function(){
+	            		for (var j = 0; j < _cnt; j++) {
+	            			(function(pi,pj){
+	            				var _left = 10;
+		            			if(pi != pj)
+		            			{
+		            				_left = 10+(pj - pi) * 120;
+		            				console.log(ele1+':eq(' + pj + ') img');
+		            				$(ele1+':eq(' + pj + ') img').css({width:'56px',height:'56px',margin:'0'});
+		            				$(ele1+':eq(' + pj + ')').css({width:'56px',height:'56px'});
+		            			}
+		            			else
+		            			{
+		            				$(ele1+':eq('+ pj +') img').css({width:'76px',height:'76px',margin:'-10px'});
+		            				$(ele1+':eq('+ pj +')').css({width:'76px',height:'76px'});
+		            			}
+		            			$(ele2+pj).animate({left:_left+'%'},'slow');
+		            		})(ii,j);
+	            		}
+            		});
+        		})(i);
+    	    }
+        }
+        function mapFun(el,str){
+    		var _num=$(el+' area').length+1;
+    		console.log(el+' area')
+    		for(var i=1;i<_num;i++){
+        		(function(ii){
+        			$(el+'_'+ii).click(function(){
+        				$('#code .code-img img').attr('src','images/'+str+'_'+ii+'.png');
+        				$('#code').center();
+                        $('#goodcover').show();
+                        $('#code').fadeIn();
+        			})
+        		})(i)
+    	    }
+        }
+    </script>
+</html>

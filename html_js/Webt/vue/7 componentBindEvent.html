@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<c1 @pp="opent"></c1>
+		<c2 @pp="opent"></c2>
+		
+	</body>
+	<script src="js/vue.js"></script>
+
+	<script>
+	
+		var c1 = Vue.extend({
+			template : '<div >这里是一个组件</div>',
+			data: function(){
+				return {}
+			},
+	       	methods:
+	       	{
+	       		opent : function()
+				{
+					alert('c1' + 111);	
+				}
+	       	},
+	       	parent : parent
+		});
+
+		Vue.component('c1', c1);
+
+		Vue.component('c2', {
+			template : '<div >HHHHH</div>',
+			data: function(){
+				return {}
+			},
+	       	methods:
+	       	{
+	       		opent : function()
+				{
+					alert('c2' + 111);	
+				}
+	       	},
+	       	parent : c1,
+	       	ready : function()
+	       	{
+	       		this.$dispatch('pp');
+	       	}
+		});
+
+	
+		var parent = new Vue({
+			el : 'body',
+			methods : {
+				opent : function()
+				{
+					alert('parent' + 111);	
+				}
+			}
+		});
+		
+		
+
+
+	</script>
+</html>

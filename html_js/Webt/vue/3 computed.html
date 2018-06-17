@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		分别使用methods和computed进行依赖绑定
+		a={{a}},b={{b()}},c={{c}}
+		<br />
+		set get 方法
+		<br />
+		<input type="text" v-model="firstName" />
+		<input type="text" v-model="lastName" />
+		<input type="text" v-model="fullName" />
+		<br /> 
+		<input type="button" onclick="ttt()" value="自定义方法"/>
+		<input type="button" v-on:click="mttt(2)" value="vue绑定方法 v-on:click的简写"/>
+	</body>
+	<script type="text/javascript" src="js/vue.js" ></script>
+	<script>
+		var vm = new Vue({
+			el:"body",
+			data:{
+				a:1,
+				firstName:"Jaq",
+				lastName:"Titi"
+			},
+			methods:
+			{
+				b : function(){
+					return this.a + 1;
+				},
+				mttt : function(param)
+				{
+					vm.a = 10 + param;
+				},
+				changeFir : function()
+				{
+					this.firstName = "Aoooo";
+				}
+			},
+			computed:
+			{
+				c : function(){
+					return this.a + 1;
+				},
+				fullName : {
+					get :function() {
+						 return this.firstName + ' ' + this.lastName
+					},
+					set :function(newValue) {
+						 var names = newValue.split(' ')
+					      this.firstName = names[0]
+					      this.lastName = names[names.length - 1]
+					}
+				}
+			}
+		})
+		
+		function ttt()
+		{
+			vm.a = 5;
+		}
+		
+		vm.$watch('a', function (newV,oldV) {
+		  console.log(newV+','+oldV);
+		})
+		
+		
+		
+		
+		
+	</script>
+</html>

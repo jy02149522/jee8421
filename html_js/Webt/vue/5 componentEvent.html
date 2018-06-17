@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		{{a}}
+		<button @click="btnC">向下传递事件</button>
+		
+		<button @click="actionEmitFun">emit</button>
+		
+		<button @click="updateD">修改组件的值</button>
+		
+		<my-component >
+			
+		</my-component>
+		
+	</body>
+	<script src="js/vue.js"></script>
+
+	<script>
+	
+				
+		var comP = Vue.component('my-component', {
+  			template: '<div >A custom component!{{a}} <br/> <table-vue v-on:edis="handleIt"></table-vue></div>',
+  			data : function()
+  			{
+  				return {a : "tony"};
+  			},
+  			methods:
+  			{
+  				
+			  	handleIt : function(a,b)
+				{
+					alert('component层得到了监听' + a + b);
+				}
+  			},
+  			events:{
+			  	edis:function(a,b){
+			  		alert('my-Componnet'+a);
+			  		alert('my-Componnet'+b);
+			  		return true; // 继续向上传递, 默认不写为不传递
+			  	}
+			  	,
+			  	broadFun : function(a)
+  				{
+  					this.$data = a;
+  					
+  				}
+  				
+		  }
+  		});
+  		
+  		var comGroup = Vue.component('table-vue',{
+  			template: '<table><tr><td @click="disFun">{{a}}</td><td>2</td><td>3</td></tr><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>1</td><td>2</td><td>3</td></tr></table>',
+  			data : function()
+  			{
+  				return {a : "1"};
+  			},
+  			methods:
+  			{
+  				disFun : function()
+  				{
+  					alert('点击了子组件' + this.$data.a);
+  					this.$emit('edis');
+  					this.$dispatch('edis',this.a,"参数2");
+  				}
+  			},
+  			events:
+  			{
+  				edis:function(){
+  					alert('table自由事件');
+  				}
+  			}
+  			
+  		});
+  		
+  		
+		
+		// 创建根实例
+		var _vue = new Vue({
+		  el: 'body',
+		  data:{a:"bbbb"},
+		  events:{
+		  	edis:function(a,b){
+		  		alert('最上层'+a);
+		  		alert('最上层'+b);
+		  	},
+		  	emitFun : function(ab)
+		  	{
+		  		alert('emitFun ' + ab.ab);
+		  	}
+		  }
+		  ,
+		  methods:{
+		  	btnC : function(){
+		  		alert('开始向下传递事件');
+		  		this.$broadcast('broadFun','参数1',{ob:'这是一个对象参数'});
+		  	},
+		  	
+		  	actionEmitFun : function()
+		  	{
+		  		alert('点击了actionEmitFun');
+		  		this.$emit("emitFun",{ab:9});
+		  	},
+		  	updateD : function()
+		  	{
+		  		this.$broadcast('broadFun',{a:'Lasss'});
+		  	}
+		  	
+		  	
+		  }
+		});
+	
+
+	</script>
+</html>

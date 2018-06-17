@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>出行方式</title>
+		<style type="text/css">
+
+			.a1{width:500px; height:200px; border-style: solid;border-color: red; border-width: 1px;position: relative; margin:auto;}
+			.abc{width:100px;height:100px;background:#f00; transition:.5s;top:50%;margin-top:-50px;position: absolute;left:300px;display: inline-block;}
+			.a1:hover .abc{width:120px; height:120px; margin:-10px 0 0 -10px;top:50%;margin-top:-50px;position: absolute; left:300px;}
+			
+			.a2 {width:100%; height:200px;border-style: solid;border-color: blue; border-width: 1px;}
+			.line {height:2px;width:100px;background-color:blue;top:50%;margin-top:-1px;position: absolute; }
+		</style>
+	</head>
+	<body>	
+		<div class="ooo" >	
+			<div class="a1">	
+				<div class="line" style="left:190px;"></div>
+				<div class="abc"></div>
+				<div class="line" style="left:410px;"></div>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript">
+			name = 'global';
+			function p()
+			{
+				console.log(name);
+				var name = 'local';
+				console.log(name);	
+			}
+			p();
+			{
+				var name = 'goOutWay.html';
+				console.log(name);
+			}
+			console.log(name);
+		</script>
+	</body>
+</html>

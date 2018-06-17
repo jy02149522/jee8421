@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js原型和原型链的理解</title>
+	</head>
+	<body>
+			<div>
+				创建2个user的实例 改变name的值 会一起改变吗
+				<input type="button" value="点击" onclick="btn1Action()"></input>
+				<span id="btn1span"></span>
+			</div>
+			<br />
+			<div>
+				创建2个user的实例 将info对象的一个实例赋值给user的prototype 不管创建多少user原型都是一个
+				<input type="button" value="点击" onclick="btn2Action()"></input>
+				<span id="btn2span"></span>
+			</div>
+			<br />
+			<div>
+				创建2个user的实例 将info对象的原型赋值给user的prototype 此时创建多个user 原型也是多个
+				<input type="button" value="点击" onclick="btn3Action()"></input>
+				<span id="btn3span"></span>
+			</div>
+	</body>
+	<script>
+		
+		var User = function()
+		{
+			this.name = "jun";
+		}
+		
+		var Info = function()
+		{
+			this.title = "初始化赋值的title";
+		}
+		
+		Info.prototype = function() {
+			this.detail = '初始化的详细';
+		}
+		
+		/**
+		 * 创建2个user的实例 改变name的值 会一起改变吗
+		 */
+		function btn1Action()
+		{
+			var _u1 = new User();
+			_u1.name = "Peter";
+			var _u2 = new User();
+			document.getElementById('btn1span').innerText = 'u1:' + _u1.name + ' u2:' + _u2.name;
+		}
+		
+		function btn2Action()
+		{
+			User.prototype = new Info();
+			var _u1 = new User();
+			var _u2 = new User();
+			_u1.__proto__.detail = 'u1修改了详细';
+			console.log('u2的原型的detail:' + _u2.__proto__.detail);
+		}
+		
+		function btn3Action()
+		{
+			User.prototype = Info.prototype;
+			var _u1 = new User();
+			var _u2 = new User();
+			_u1.__proto__.detail = 'u1修改了详细';
+			console.log('u2的原型的detail:' + _u2.__proto__.detail);
+			
+			
+		}
+		
+	</script>
+</html>

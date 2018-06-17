@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	
+	<body>
+		<div class="aaa" >
+		  {{ message }} <input type="text" v-model="message" />
+		  <input type="button"  value="点击时间"  v-on:click="item909click"/>
+		  <br />
+		  一次性显示,不根据模型更新{{* message }} 
+		  <br />
+		  输出html{{{* message }}}
+		  <br />
+		  <div id="item-{{ id }}">123123123</div>
+		</div>
+		
+		<ul>
+	    	<li v-for="todo in todos"  v-on:click="aClick">
+	      		{{ todo.b }}
+	    	</li>
+	  	</ul>
+		
+		<div id="ifDiv">
+			<span v-if="isShow">通过数据驱动是否显示</span>
+			<br />
+			<span v-if="isShowFun()">通过函数驱动是否显示</span>
+			
+		</div>
+		
+	</body>
+	<script src="js/vue.js"></script>
+<script>
+	new Vue({
+	  el: '.aaa',
+	  data: {
+	    message: 'Hello Vuesss.js!',
+	   	id : "909"
+	  },
+	  methods:{
+	  		item909click : function()
+	   		{
+	   			alert(document.getElementById("item-909").innerText);
+	   			
+	   		}
+	  }
+	});	
+	
+	new Vue({
+	  el: 'ul',
+	  data: {
+	    todos: [
+	      { b: 'Learn JavaScript' },
+	      { b: 'Learn Vue.js' },
+	      { b: 'Build Something Awesome' }
+	    ]
+	  },
+	   methods: {
+	   		aClick : function(e){
+	   			console.log(this);
+	   		}
+	   }
+	});
+	
+	new Vue(
+		{
+			el:"#ifDiv",
+			data:{
+				isShow : true,
+				isShowFun : function(){
+					return true;
+				}
+			}
+		}
+	);
+</script>
+
+</html>

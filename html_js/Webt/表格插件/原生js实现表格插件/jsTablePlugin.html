@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/tablePlugin.css" />
+		<style>
+			#aaa{
+				width:900px;
+				text-align: center;
+				margin:40px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="aaa"></div>
+	</body>
+	<script type="text/javascript" src="js/tablePlugin.js" ></script>
+	<script>
+	    var data = [
+			{userName:'a',lotteryList:'b',lotteryFlag:"yidin"},
+			{userName:'a1',lotteryList:'b1',lotteryFlag:"yidin"},
+			{userName:'a2',lotteryList:'b2'},
+			{userName:'a1',lotteryList:'b1',lotteryFlag:"yidin"},
+			{userName:'a2',lotteryList:'b2',lotteryFlag:"yidin"},
+			{userName:'a2',lotteryList:'b2'},
+			{userName:'a1',lotteryList:'b1',lotteryFlag:"yidin"},
+			{userName:'a2',lotteryList:'b2',lotteryFlag:"yidin"},
+			{userName:'a',lotteryList:'b',lotteryFlag:"yidin"},
+			{userName:'a1',lotteryList:'b1',lotteryFlag:"yidin"},
+			{userName:'a2',lotteryList:'b2'}
+		]
+		var table=new tablePlugin();
+		table.init(document.getElementById('aaa'),{
+			width:'900px',
+			//是否有边框
+			isBorder:true,
+			//列数
+			columns:6,
+			// data数据key
+			columnsKeys:['userName','lotteryList'],
+			//标题样式与内容
+			columnsTitle:{
+				show:true,
+				data:['姓名','抽奖码','姓名','抽奖码','姓名','抽奖码'],
+				fontStyle:"700 25px '微软雅黑' ",
+				heigth:'40px'
+			},
+			// 对其方式 0 居中 1靠右 -1靠左
+			columnsAlign:[0,0,0,0,0,0],
+			// 颜色
+			color : "red",
+			// 字号
+			fontStyle : "500 20px '微软雅黑' ",
+			// 每列百分比
+			percent:['15%','25%','15%','15%','15%','15%'],
+			// 行高
+			rowHeight:'30px',
+			// 高亮时
+			highlight : { 
+				color : "#333",
+				rFun : function(dataItem)
+				{
+					if(dataItem.lotteryFlag)
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			},
+			// 数据
+			list:data
+		});
+	</script>
+</html>

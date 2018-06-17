@@ -1,0 +1,252 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>翻红包游戏demo gameForLottery userId level</title>
+		<link rel="stylesheet" type="text/css" href="jquery.fanhongbao.css">
+		<link rel="stylesheet" type="text/css" href="animate.min.css">
+		<style>
+			.mainBody *{
+				box-sizing:content-box;
+			}
+			#play,.theme{
+				margin:0 auto;
+			}
+			.mainBody img{
+			   display: block;
+			}
+			.mainBody{
+				width:600px;
+				height:330px;
+				margin: 0 auto;
+				position:relative;
+			}
+			.startBody{
+				width:100%;
+				height: 100%;
+				position: absolute;
+				background:url(images/start.png) no-repeat;
+				background-size:100% 100%;
+				top:0;
+				left:0;
+				z-index: 3;
+			}
+			#btnStart{
+				display: block;
+				width:150px;
+				margin:0 auto;
+				position:relative;
+				top:270px;
+			}
+			#btnStart:hover{
+				cursor: pointer;
+			}
+			.mainPlay{
+				width:100%;
+				height:100%;
+				position:absolute;
+				top:0;
+				left:0;
+				z-index: 2;
+				background-image: url(images/L1_bac.png);
+				background-size:100% 100%;
+			}
+			.mainPlay .level{
+				position:absolute;
+				left:80px;
+				top:45px;
+				width:15%;
+			}
+			.mainPlay .theme{
+				width:27%;
+				margin-bottom: 10px;
+			}
+			.popup{
+				position:absolute;
+				width:100%;
+				height: 100%;
+				z-index:10;
+				left: 0;
+				top:0;
+				background-color: rgba(0,0,0,0.4);
+				display:none; 
+			}
+			.popup img{
+				width:250px;
+				display:none;
+			}
+			#awardBar{
+				width:260px;
+				height:35px;
+				background-image: url(images/awardBar.png);
+				background-size:100% 100%;
+				display:block;
+				text-align:center;
+				font-size:15px;
+				font-family: "楷体";
+				font-weight: 600;
+				color:#FFFB01;
+				line-height:30px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="flex.compatibility.css">
+	</head>
+	<body>
+		<div class="mainBody">
+			<div class="startBody">
+				<img id="btnStart" src="images/startBtn.png" />
+			</div>
+			<div class="mainPlay">
+				<img class="level" src="images/L1.png" />
+				<img class="theme" src="images/theme.png"/>
+				<div id="play"></div>
+				<div id="popup" class="popup xycenter ycenter-m tb">
+					<img src="images/pass.png" usemap="#pass" class="passImg" />
+					<img src="images/noPass.png" usemap="#noPass" class="noPassImg"/>
+					<img src="images/passImg.png" usemap="#passAll" class="passAllImg"/>
+					<span id="awardBar"></span>
+				</div>
+				<map name="pass" id="pass">
+					<area shape="rect" coords="35,165,120,190" href="javascript:void(0)" id="pass_next"/>
+					<area shape="rect" coords="132,165,218,190" href="javascript:void(0)" id="pass_no">
+				</map>
+				<map name="noPass" id="noPass">
+					<area shape="rect" coords="35,165,120,190" href="javascript:void(0)" id="noPass_next"/>
+					<area shape="rect" coords="132,165,218,190" href="javascript:void(0)" id="noPass_no">
+				</map>
+				<map name="passAll" id="passAll">
+					<area shape="rect" coords="82,165,175,190" href="javascript:void(0)" id="passAll_btn">
+				</map>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script src="jquery.fanhongbao.js"></script>
+	<script>
+		var _hongbao = $("#play").fanhongbao({
+					width:'530px', // 宽
+					rootPath:'images/',
+					bgImg : 'L1_bac2.png',  // 整个背景图片
+					itemBgImg : 'L1_bac_ele.png', // 元素背景图片
+					itemAwardImg : 'Award.png', // 中奖图片
+					itemNoAwardImg:'noAward.png',//未中奖图片
+					level : 1, // 游戏关卡级别
+					onStop:function(){
+					//stop函数
+					},
+					//设置游戏运行
+					onsetOperation:{
+						Timer:[{min:13000,max:15000},{min:17000,max:19000},{min:13000,max:15000},{min:13000,max:15000},{min:20000,max:23000}],
+						speed:[
+							   {'mSpeed':250,'transition':"0.2s"},
+							   {'mSpeed':200,'transition':"0.17s"},
+							   {'mSpeed':250,'transition':"0.2s"},
+							   {'mSpeed':200,'transition':"0.2s"},
+							   {'mSpeed':200,'transition':"0.2s"}
+						]
+					},
+					onItemClick : function(p,isFlag)
+					{
+						if(isFlag)
+						{
+							if(p.level==5){
+								$('#popup .passAllImg').css('display','block');
+								$('#popup .passImg').css('display','none');
+								$('#popup .noPassImg').css('display','none');
+								$('#popup').addClass('bbox');
+								$('#awardBar').css('display','block');
+								$('#passAll_btn').bind('click',function(){
+									p.level=6;
+									$('#popup').removeClass('bbox');
+									$('.mainPlay').fadeTo('slow',0.4);
+									$('.startBody').css('display','block');
+									$('.startBody').removeClass('animated fadeOutUp');
+									$('.startBody').addClass('animated fadeInUp');							
+								})
+							}
+							else{
+								$('#pass_next').unbind('click');
+								$('#pass_no').unbind('click');
+								$('#awardBar').css('display','block');
+								$('#popup .passAllImg').css('display','none');
+								$('#popup .passImg').css('display','block');
+								$('#popup .noPassImg').css('display','none');
+								$('#popup').addClass('bbox');
+								//点击继续挑战
+								$('#pass_next').bind('click',function(){
+									p.level=p.level+1;
+									setTimeout(function(){
+										p.bgImg='images/L'+p.level+'_bac2.png';
+										p.itemBgImg='images/L'+p.level+'_bac_ele.png';
+									},100)
+									$('#popup').removeClass('bbox');
+									$('.mainPlay').fadeTo('slow',0.4);
+									setTimeout(function(){
+										_hongbao.start();
+										$('.mainPlay .level').prop('src','images/L'+(p.level)+'.png');
+										$('.mainPlay').css('background-image','url(images/L'+(p.level)+'_bac.png)');
+										$('.mainPlay').fadeTo('slow',1);
+									},1000);
+								});
+								//点击不想玩了
+								$('#pass_no').bind('click',function(){
+									$('#popup').removeClass('bbox');
+									$('.mainPlay').fadeTo('slow',0.4);
+									$('.startBody').css('display','block');
+									$('.startBody').removeClass('animated fadeOutUp');
+									$('.startBody').addClass('animated fadeInUp');
+									$('.mainPlay').fadeTo('slow',1);
+								})
+							}
+						}else{
+							//首先清除绑定事件
+							$('#noPass_next').unbind('click');
+							$('#noPass_no').unbind('click');
+							$('#popup .passAllImg').css('display','none');
+							$('#popup .passImg').css('display','none');
+							$('#popup .noPassImg').css('display','block');
+							$('#awardBar').css('display','none');
+							$('#popup').addClass('bbox');
+							//点击重新挑战
+							$('#noPass_next').bind('click',function(){
+								$('#popup').removeClass('bbox');
+								$('.mainPlay').fadeTo('slow',0.4);
+								setTimeout(function(){
+									_hongbao.start();
+									$('.mainPlay').fadeTo('slow',1);
+								},1000);
+							});
+							//点击不想玩了
+							$('#noPass_no').bind('click',function(){
+								$('#popup').removeClass('bbox');
+								$('.mainPlay').fadeTo('slow',0.4);
+								$('.startBody').css('display','block');
+								$('.startBody').removeClass('animated fadeOutUp');
+								$('.startBody').addClass('animated fadeInUp');
+								$('.mainPlay').fadeTo('slow',1);
+							})
+						}
+					}
+				});
+			 $('#popup_close').click(function(){
+				 $('.popup_modal').removeClass('bbox');
+			 })
+			$('#btnStart').click(function(){
+                level=1;
+				if(level==6){
+					$('#popup_msg').html('您已经通关，感谢参与！');
+					$('.popup_modal').addClass('bbox');
+				}else{
+					_hongbao.init(level);
+					$('.mainPlay .level').prop('src','images/L'+level+'.png');
+					$('.mainPlay').css('background-image','url(images/L'+level+'_bac.png)'); 
+					$('.startBody').addClass('animated fadeOutUp');
+					setTimeout(function(){
+						$('.startBody').css('display','none');
+						_hongbao.start();
+					},1000);
+				}
+			})	
+
+				
+    </script>
+</html>

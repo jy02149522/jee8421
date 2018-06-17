@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<h3>Meal upgrades</h3>
+		<p>Make your flight more bearable by selecting a meal to match your social and economic status.</p>
+		Chosen meal: <select data-bind="options: meals,optionsText: 'mealName',value: chosenMeal"></select>
+		<input type="button" id="" value="UpdateMeal" onclick="updateMeal()" />
+		
+<input type="button" id="" value="AddMeal" onclick="addMeal()" />
+<input type="button" id="" value="addMealTop" onclick="addMealTop()" />
+<input type="button" id="" value="removeItem" onclick="removeItem()" />
+<input type="button" id="" value="reverseItem" onclick="reverseItem()" />
+
+		<p>
+		    You've chosen:
+		    <b data-bind="text: chosenMeal().description"></b>
+		    (price: <span data-bind='text: formatPrice(chosenMeal().extraCost)'></span>)
+		</p>
+
+
+		
+	</body>
+	<script type="text/javascript" src="../js/knockout-3.4.0.js" ></script>
+	<script>
+	
+		var availableMeals = [
+		    { mealName: 'Standard', description: 'Dry crusts of bread', extraCost: 0 },
+		    { mealName: 'Premium', description: 'Fresh bread with cheese', extraCost: 9.95 },
+		    { mealName: 'Deluxe', description: 'Caviar and vintage Dr Pepper', extraCost: 18.50 }
+		];
+		var viewModel = {
+    		chosenMeal: ko.observable(),
+    		meals : ko.observableArray(availableMeals)
+		}; 
+
+		ko.applyBindings(viewModel); // Makes Knockout get to work
+		// 注意：ko. applyBindings需要在上述HTML之后应用才有效
+		function updateMeal()
+		{
+			var newItem = viewModel.meals()[0].clone();
+			newItem.mealName = "标准的";
+			newItem.extraCost = 454;
+			viewModel.meals.replace(viewModel.meals()[0],newItem);
+      		
+      		
+			
+			
+		}
+		
+		function addMeal()
+		{
+			viewModel.meals.push({ mealName: 'Blanck', description: 'dddddddddddd', extraCost: 500.50 });
+		}
+		
+		function addMealTop()
+		{
+			viewModel.meals.unshift({ mealName: 'Top', description: '111111', extraCost: 101.50 });
+		}
+		
+		
+		function formatPrice(price) {
+		    return price == 0 ? "Free" : "$" + price.toFixed(2);
+		}
+		
+		function reverseItem()
+		{
+			viewModel.meals.reverse();
+		}
+		
+			function removeItem()
+		{
+			var _index = viewModel.meals.remove(function (item){
+				return item.mealName == "Standard";
+			});
+				
+		}
+		
+		Object.prototype.clone = function () {
+    var obj = {};
+    for (var p in this)
+      obj[p] = this[p];
+    return obj;
+  };
+	</script>
+</html>

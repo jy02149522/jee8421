@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<meta charset="UTF-8" name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" type="text/css" media="screen,print" href="css/image-gallery-three.css" />
+<link rel="stylesheet" type="text/css" media="screen,print" href="css/style.css" />
+</head>
+<body>
+<div class="box" style="position: relative;">
+	
+</div>
+<script type='text/javascript' src='js/jquery-1.10.1.js'></script> 
+<script type="text/javascript" src="js/three.min.js"></script> 
+<script type="text/javascript" src="js/assets.js"></script> 
+<script type="text/javascript" src="js/preloadjs.min.js"></script> 
+<script type="text/javascript" src="js/TweenMax.min.js"></script> 
+<script type="text/javascript" src="js/Stats.js"></script> 
+<script type="text/javascript" src="js/image-gallery-three.js"></script> 
+<script type='text/javascript'>
+$(function(){
+    var box = $(".box").ig3js({
+        manifest: [
+            {src:"1.jpg", id:"image1"},
+            {src:"2.jpg", id:"image2"},
+            {src:"3.jpg", id:"image3"},
+            {src:"4.jpg", id:"image4"},
+            {src:"5.jpg", id:"image5"},
+            {src:"6.jpg", id:"image6"},
+            {src:"7.jpg", id:"image7"},
+            {src:"8.jpg", id:"image8"},
+            {src:"9.jpg", id:"image9"}
+        ],
+        imagePath: 'images/',
+        alphaBackground: true,
+        onNavigateComplete: function(obj){
+        	
+        }
+    });
+
+    $(".next").click(function(){
+        box.navigate.next();
+        return false;
+    });
+
+    $(".prev").click(function(){
+        box.navigate.prev();
+        return false;
+    });
+
+    $(".defP").click(function(){
+        box.perspective.default();
+        return false;
+    });
+
+    $(".trP").click(function(){
+        box.perspective.topRight();
+        return false;
+    });
+
+    $(".tlP").click(function(){
+        box.perspective.topLeft();
+        return false;
+    });
+
+    for(count=1; count<=10; count++){
+        $(".goto").append('<a href="#" class="goto'+count+'" pos="'+(count-1)+'"> '+count+' </a>');
+        $(".goto"+count).click(function(){
+            box.navigate.goTo($(this).attr("pos"));
+            return false;
+        });
+    }
+
+});
+</script> 
+<div class="goto"></div>
+<a href="#" class="next">next</a><br />
+<a href="#" class="defP">default perspective</a><br />
+<a href="#" class="trP">top right perspective</a><br />
+<a href="#" class="tlP">top left perspective</a><br />
+
+</body>
+</html>

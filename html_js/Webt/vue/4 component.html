@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		{{a}}
+		<input type="text" v-mode="name" />
+		<my-component :name="1" time="2016-03-05" bet="bttttttttte" my-message="我的信息">
+			
+		</my-component>
+		
+	</body>
+	<script src="js/vue.js"></script>
+
+	<script>
+	
+				
+		var comP = Vue.component('my-component', {
+  			template: '<div>A custom component!{{a}}. name={{name}} time={{time}} bet={{bet}} </br> myMessage={{myMessage}}</div>',
+  			props:['name','time','bet',"my-message"],
+  			data : function()
+  			{
+  				return {a : "tony"};
+  			}
+  		})
+		
+		// 创建根实例
+		new Vue({
+		  el: 'body',
+		  data:{a:"bbbb"}
+		})
+		
+		
+
+	</script>
+</html>

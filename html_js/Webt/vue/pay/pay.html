@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/wxzf.css">
+	</head>
+	<body>
+	
+		<div id="payDiv">
+			<wx-pay :title="title" :money="money" :provider="provider" v-on:pwd-action="pwdFunc"></wx-pay>
+		</div>
+		
+	</body>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" src="../../js/jquery.js" ></script>
+	<script src="vue_pay.js"></script>
+	<script>
+		new Vue({
+		  el: '#payDiv',
+		  data: {
+		    title:'111',
+		    money:'222',
+		    provider:'淘宝支付宝',
+		  },
+		  methods:{
+		  	pwdFunc : function(pwd,obj)
+		  	{
+		  		alert('密码是：'+pwd);
+		  		obj.close();
+		  	}
+		  }
+		});	
+	</script>
+</html>

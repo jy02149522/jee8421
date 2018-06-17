@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>api测试11</title>
+<style type="text/css">
+	.group
+	{
+		border: 1px solid #fff;
+		margin-bottom: 50px;
+		
+	}
+	
+	
+</style>
+</head>
+
+<body>
+	<p>所有请求遵循规则:</p>
+	<p>1 查询类请求命名格式为getXxxx,增加修改类请求命名中不可使用get开头</p>
+	<p>2 统一引用lib.js,使用$api.ajax方法进行请求</p>
+	<br/>
+	<br/>
+	<br/>
+	
+	<div class="group">
+		<div >1 无参数获取数据,模拟无参数查询,以get开头 请求后台: getSelectAll()</div>
+		<button id="t01">Get测试</button>
+	</div>
+	
+	<div class="group">
+		<div>2 基本类型int string的查询 请求后台: getSelectAll2(String name,Integer age) 注册后台int等简单类型需要使用复杂对象类型Integer </div>
+		<button id="t02">Get测试</button>
+	</div>
+	
+	<div class="group">
+		<div>3 复杂类型的查询 请求后台: getSelectByObj(ReqUser user) 前台请求无变化,但后台使用对用类型接收参数 参数其实还是 name和age </div>
+		<button id="t03">Get测试</button>
+	</div>
+	
+	<div class="group">
+		<div>4 复杂类型的查询,返回一个ReqUser的List集合 请求后台: getSelectListByObj(ReqUser user) 前台请求无变化 </div>
+		<button id="t04">Get测试</button>
+	</div>
+	
+	<div class="group">
+		<div>5 post方式提交一个对象: apUser(ReqUser user) </div>
+		<button id="t05">Post测试</button>
+	</div>
+	
+	<div class="group">
+		<div>6 post方式提交简单类型参数: apBaseParam(String tom,Integer age) </div>
+		<button id="t06">Post测试</button>
+	</div>
+	
+	
+	<div class="group">
+		<div>7 如果请求参数是List的对象,则必须使用非get请求,不能再使用get开头.这次我们用post开头但不是必须使用post开头,只要不是get开头,则都是走json格式的post请求. 请求后台: postSelectListByObj(List<ReqUser> user)  </div>
+		<button id="t07">Post测试</button>
+	</div>
+	
+	
+	<div class="group">
+		<div>8 与7不同的是将对象List包在对象里传递过去 请求后台: postSelectListByObj(TestReqUserGroup)  </div>
+		<button id="t08">Post测试</button>
+	</div>
+	
+	<div class="group">
+		<div>9 token认证 请求后台:  apUser2(ReqUser user)  </div>
+		<button id="t09">Post测试</button>
+	</div>
+	
+	
+</body>
+
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/libs.js"></script>
+<script type="text/javascript" >
+	$(function(){
+		alert('测试开始....');
+		window.$api.print("测试开始....");
+		
+		// getSelectAll()
+		$("#t01").click(function(){
+	  		$api.ajax("justTest/getSelectAll",{uid:"99"},function(data){
+	  			// 因为业务返回suc=false 所以不执行该方法 这里不再需要判断suc==true
+	  		},function(data){
+	  			// 执行这里
+	  			alert(JSON.stringify(data));
+	  		});
+	  	});
+	  	
+		// getSelectAll(String name,Integer age)
+		$("#t02").click(function(){
+			$api.ajax("justTest/getSelectAll2",{name:"tom",age:18},function(data){
+	  			$api.print(data);	
+	  			alert(JSON.stringify(data));
+	  		});
+	  	});
+	  	
+		// getSelectByObj(ReqUser user)
+		$("#t03").click(function(){
+			$api.ajax("justTest/getSelectByObj",{name:"tom",age:18},function(data){
+	  			$api.print(data);	
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+		
+		// getSelectListByObj(ReqUser user)
+		$("#t04").click(function(){
+			$api.ajax("justTest/getSelectListByObj",{name:"tom",age:18},function(data){
+	  			$api.print(data);
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+		
+		// apUser(ReqUser user)
+		$("#t05").click(function(){
+			$api.ajax("justTest/apUser",{name:"tom",age:18},function(data){
+	  			$api.print(data);
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+		
+		// apBaseParam
+		$("#t06").click(function(){
+			$api.ajax("justTest/apBaseParam",{name:"param",age:20},function(data){
+	  			$api.print(data);
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+		
+		
+		// postSelectListByObj(List<ReqUser> user)
+		$("#t07").click(function(){
+			$api.ajax("justTest/postSelectListByObj",[{name:"tom",age:18},{name:"tom",age:19}],function(data){
+	  			$api.print(data);
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+		
+		// postSelectListByObj(TestReqUserGroup user)
+		$("#t08").click(function(){
+			$api.ajax("justTest/postSelectListByObj2",{uList:[{name:"tom",age:18},{name:"tom",age:19}],num:888},function(data){
+	  			$api.print(data);
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+		
+		// token认证方法
+		$("#t09").click(function(){
+			$api.ajax("justTest/apUser2?uid=25",{name:"tom",age:18},function(data){
+	  			$api.print(data);
+	  			alert(JSON.stringify(data));
+	  		});
+		});
+	});
+</script>
+
+</html>

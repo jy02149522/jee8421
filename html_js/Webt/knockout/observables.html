@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>监控属性</title>
+	</head>
+	<body>
+		姓名:<h1 data-bind="text:name"></h1>
+		<br />
+		<input type="button" id="" value="修改上面的值,自动更新" onclick="updateOnAuto()" data-bind="disable:(viewModel.disFlag() & 1) != 0" />
+		
+		<br />
+		<br />
+		
+		年龄:<h1 data-bind="text:age"></h1>
+		
+	   <h2 data-bind="text:fullShow()" />
+	    <br />
+	    
+	    
+	    <h2 data-bind="text:nameAndAge()" />
+		
+		
+	</body>
+	<script type="text/javascript" src="../js/knockout-3.4.0.js" ></script>
+	<script>
+		
+		
+		
+		var viewModel = {
+			name : ko.observable("ddd"),
+			age : ko.observable("18"),
+			disFlag : ko.observable(5)
+		};
+		
+		
+		viewModel.fullShow = ko.dependentObservable(function () {
+			return ' 通过depandentObservable实现姓名叫做' + this.name() + ' 年龄是' + this.age(); 
+		},viewModel
+		);
+		
+		
+		ko.applyBindings(viewModel);
+
+		//alert((viewModel.disFlag() & 1) != 0); 
+		
+		// 点击后属性被监听后自动刷新数据
+		function updateOnAuto()
+		{
+			var myDate=new Date();
+			viewModel.name(myDate.getTime()+'');
+		}
+		
+		function nameAndAge()
+		{
+			return '通过方法实现姓名叫做' + viewModel.name() + ' 年龄是' + viewModel.age(); 
+		}
+		
+	</script>
+</html>

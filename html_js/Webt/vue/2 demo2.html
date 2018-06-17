@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+		  <input v-model="newTodo" v-on:keyup.enter="addTodo">
+		  <input value="pop" type="button" v-on:click="popx" />
+		    <input value="shift" type="button" v-on:click="shiftx" />
+		      <input value="unshift" type="button" v-on:click="unshiftx" />
+		      <input value="sort" type="button" v-on:click="sortx" />
+		      <input value="reverse" type="button" v-on:click="reversex" />
+		        
+		  <ul>
+		    <li v-for="todo in todos">
+		      <span>{{ todo.text }}</span>
+		      <button v-on:click="removeTodo($index)">X</button>
+		    </li>
+		  </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/vue.js" ></script>
+	<script>
+		new Vue({
+		  el: '#app',
+		  data: {
+		    newTodo: '',
+		    todos: [
+		      { text: 'Add some todos' }
+		    ]
+		  },
+		  methods: {
+		    addTodo: function () {
+		      var text = this.newTodo.trim()
+		      if (text) {
+		        this.todos.push({ text: text })
+		        this.newTodo = ''
+		      }
+		    },
+		    removeTodo: function (index) {
+		      this.todos.splice(index,1)
+		    },
+		    popx : function()
+		    {
+		    	this.todos.pop();
+		    },
+		    shiftx : function()
+		    {
+		    	this.todos.shift();
+		    },
+		    unshiftx : function()
+		    {
+		    	this.todos.unshift();
+		    },
+		    sortx : function()
+		    {
+		    	this.todos.unshift();
+		    },
+		   	reversex : function()
+		   	{
+		   		this.todos.reverse();
+		   	}
+		  }
+		})
+	</script>
+</html>

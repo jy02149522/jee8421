@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.loading-box{
+				position: fixed;
+				left: 0;
+				top:0;
+				right: 0;
+				bottom: 0;
+				z-index: 50001;
+				background: rgba(0,0,0,0.3);
+			}	
+			.loading-img{
+				z-index: 50002;
+				left: 50%;
+				top:50%;
+				width: 100px;
+				height: 100px;
+				position: fixed;
+				transform:translate(-50%,-50%);
+				background-image: url('./loading.gif');
+			}
+		</style>
+	</head>
+	
+	<body>
+	</body>
+	<script type="text/javascript" src="../js/jquery.js" ></script>
+	<script>
+	$(document).ready(function(){
+		showLoading();
+		$(document.body).click(function(){
+			hideLoading();
+		});
+	});
+		
+	var showLoading = function(){
+		var loadingBoxTemp = '<div class="loading-box"></div>'
+		var imgTemp = '<div class="loading-img"></div>'
+
+		var loadingBox = $(loadingBoxTemp);
+		var img = $(imgTemp);
+
+		loadingBox.append(img);
+
+		$(document.body).append(loadingBox);
+	}
+	
+	var hideLoading = function(){
+		$('.loading-box').remove();
+	}
+	
+	</script>
+</html>
